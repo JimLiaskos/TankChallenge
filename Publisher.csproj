@@ -45,15 +45,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API.cs" />
+    <Compile Include="Behavior\BaseBehavior.cs" />
+    <Compile Include="Behavior\TakeAStroll.cs" />
     <Compile Include="Direction.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Behavior\ITankBehavior.cs" />
+    <Compile Include="TankAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Solution.cs" />
-    <Compile Include="TankGame.cs" />
+    <Compile Include="TankAPI.cs" />
     <Compile Include="TankState.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

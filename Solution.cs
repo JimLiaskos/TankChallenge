@@ -6,8 +6,13 @@ public class Solution
 {
     private int _turnCount = 0;
 
+    private ITankBehavior _behavior;
+
+
     public Solution()
     {
+        _behavior = new TakeAStroll();
+
         // If you need initialization code, you can write it here!
     }
 
@@ -23,11 +28,20 @@ public class Solution
         // Todo: Write your code here!
         Console.WriteLine("Turn #{0}", _turnCount++);
         Console.WriteLine();
-        
-        Console.WriteLine(TankState.Current);
+
+        Console.WriteLine(TankAPI.CurrentState);
         Console.WriteLine();
         Console.WriteLine();
-           
+
+        Loop();
     }
-   
+
+    public void Loop()
+    {
+        var action = _behavior.GetNextAction();
+
+        TankAPI.PerformAction(action);
+        TankAPI.CompleteTurn();    
+    }
+
 }

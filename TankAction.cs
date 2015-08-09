@@ -1,6 +1,7 @@
 ﻿
 public enum TankAction
 {
+    Unknown,
     FireCannon,
     MoveForward,
     MoveBackward,

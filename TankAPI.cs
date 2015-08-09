@@ -4,6 +4,7 @@ using System;
 public static class TankAPI
 {
     private static bool _isTurnCompleted;
+    private static TankState _currentState;
 
     /// <summary>
     /// 
@@ -11,17 +12,29 @@ public static class TankAPI
     static TankAPI()
     {
         _isTurnCompleted = false;
+        _currentState = TankState.Current;
     }
 
-    public static int CompleteTurn(int initialStateFuel)
+    public static bool IsTurnCompleted
+    { get { return _isTurnCompleted; } }
+
+    public static TankState CurrentState
+    { get { return _currentState; } }
+
+    public static int CompleteTurn()
     {
         if (!_isTurnCompleted) {
             throw new ApplicationException("Turn is NOT completed, error in tank logic!");
         }
 
         _isTurnCompleted = false;
+        var newstate = TankState.Current;
+        var fuelUsed = CurrentState.Fuel - newstate.Fuel;
 
-        return initialStateFuel - TankState.Current.Fuel;
+        // set state for the begining of the next turn
+        _currentState = newstate;
+
+        return fuelUsed;
     }
 
     public static void PerformAction(TankAction action)
