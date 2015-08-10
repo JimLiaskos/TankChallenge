@@ -11,7 +11,7 @@ public static class TankAPI
     /// </summary>
     static TankAPI()
     {
-        _isTurnCompleted = false;
+        //_isTurnCompleted = false;
         _currentState = TankState.Current;
     }
 
@@ -21,20 +21,18 @@ public static class TankAPI
     public static TankState CurrentState
     { get { return _currentState; } }
 
+    public static void NewTurn() {
+        _currentState = TankState.Current;
+        _isTurnCompleted = false;
+    }
+
     public static int CompleteTurn()
     {
         if (!_isTurnCompleted) {
             throw new ApplicationException("Turn is NOT completed, error in tank logic!");
         }
 
-        _isTurnCompleted = false;
-        var newstate = TankState.Current;
-        var fuelUsed = CurrentState.Fuel - newstate.Fuel;
-
-        // set state for the begining of the next turn
-        _currentState = newstate;
-
-        return fuelUsed;
+        return CurrentState.Fuel - TankState.Current.Fuel;
     }
 
     public static void PerformAction(TankAction action)

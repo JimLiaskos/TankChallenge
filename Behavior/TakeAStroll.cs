@@ -3,10 +3,11 @@ public class TakeAStroll : BaseBehavior, ITankBehavior
 {
     public override TankAction GetNextAction()
     {
-       return ChooseAction(GetNextActionInternal());
+        return ChooseAction(GetNextActionInternal());
     }
 
-    private TankAction GetNextActionInternal() {
+    private TankAction GetNextActionInternal()
+    {
         if (TankAPI.CurrentState[Direction.Front] > 1) {
             return TankAction.MoveForward;
         }
@@ -16,26 +17,26 @@ public class TakeAStroll : BaseBehavior, ITankBehavior
 
     private TankAction AvoidDeadEnd()
     {
-        var direction = Direction.Back;
+        var action = TankAction.MoveBackward;
 
         var left_available = TankAPI.CurrentState[Direction.Left] > 1;
         var right_available = TankAPI.CurrentState[Direction.Right] > 1;
 
         if (left_available && right_available) {
 
-            direction = TankAPI.CurrentState[Direction.Left] >= TankAPI.CurrentState[Direction.Right] ?
-                Direction.Left :
-                Direction.Right;
+            action = TankAPI.CurrentState[Direction.Left] >= TankAPI.CurrentState[Direction.Right] ?
+                TankAction.TurnLeft :
+                TankAction.TurnRight;
 
         } else if (left_available) {
 
-            direction = Direction.Left;
+            action = TankAction.TurnLeft;
 
         } else if (right_available) {
 
-            direction = Direction.Right;
+            action = TankAction.TurnRight;
         }
 
-        return TankAction.MoveForward;
+        return action;
     }
 }

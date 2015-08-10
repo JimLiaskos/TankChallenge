@@ -26,21 +26,25 @@ public class Solution
     public void Update()
     {
         // Todo: Write your code here!
-        Console.WriteLine("Turn #{0}", _turnCount++);
-        Console.WriteLine();
-
-        Console.WriteLine(TankAPI.CurrentState);
-        Console.WriteLine();
+        Console.WriteLine("Turn #{0}", ++_turnCount);
         Console.WriteLine();
 
         Loop();
+
     }
 
     public void Loop()
     {
-        var action = _behavior.GetNextAction();
 
+        TankAPI.NewTurn();
+
+        var action = _behavior.GetNextAction();
         TankAPI.PerformAction(action);
+
+        Console.WriteLine(TankState.Current);
+        Console.WriteLine("Action: {0}", action);
+        Console.WriteLine();
+
         TankAPI.CompleteTurn();    
     }
 

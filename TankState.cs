@@ -54,11 +54,22 @@ public class TankState
     {
         var builder = new StringBuilder();
 
-        builder.AppendFormat("FR: {0} BA: {1} LE: {2} RI: {3} ",
-            this[Direction.Front].ToString("##"),
-            this[Direction.Back].ToString("##"),
+        builder.AppendFormat("\t\tFR: {0}", this[Direction.Front].ToString("##"));
+        builder.AppendLine();
+
+        builder.AppendFormat("\tLE: {0}\t\tRI: {1}",
             this[Direction.Left].ToString("##"),
             this[Direction.Right].ToString("##"));
+        builder.AppendLine();
+
+        builder.AppendFormat("\t\tBA: {0}", this[Direction.Back].ToString("##"));
+        builder.AppendLine();
+
+        //builder.AppendFormat("FR: {0} BA: {1} LE: {2} RI: {3} ",
+        //    this[Direction.Front].ToString("##"),
+        //    this[Direction.Back].ToString("##"),
+        //    this[Direction.Left].ToString("##"),
+        //    this[Direction.Right].ToString("##"));
 
         builder.AppendLine();
 
