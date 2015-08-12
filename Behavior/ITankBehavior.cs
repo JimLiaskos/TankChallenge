@@ -1,5 +1,6 @@
 ﻿
 public interface ITankBehavior
 {
-    TankAction GetNextAction();
+    TankAction GetNextAction(TankAction? previousAction);
+
 }

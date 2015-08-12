@@ -6,12 +6,12 @@ public class Solution
 {
     private int _turnCount = 0;
 
-    private ITankBehavior _behavior;
+    private Brain _brain;
 
 
     public Solution()
     {
-        _behavior = new TakeAStroll();
+        _brain = new Brain();
 
         // If you need initialization code, you can write it here!
     }
@@ -38,7 +38,7 @@ public class Solution
 
         TankAPI.NewTurn();
 
-        var action = _behavior.GetNextAction();
+        var action = _brain.TakeDecision(TankState.Current);
         TankAPI.PerformAction(action);
 
         Console.WriteLine(TankState.Current);

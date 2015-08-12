@@ -1,7 +1,7 @@
 ﻿public enum Direction
 {
-    Front, 
-    Back, 
-    Left, 
-    Right
+    North, 
+    South, 
+    West, 
+    East
 }

@@ -7,5 +7,5 @@ public enum TankAction
     MoveBackward,
     TurnLeft,
     TurnRight,
-    Stay
+    TryToShoot
 }

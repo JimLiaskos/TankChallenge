@@ -44,9 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API.cs" />
-    <Compile Include="Behavior\BaseBehavior.cs" />
+    <Compile Include="_ignore\API.cs" />
+    <Compile Include="Behavior\Brain.cs" />
+    <Compile Include="Behavior\TurnShootTurn.cs" />
     <Compile Include="Behavior\TakeAStroll.cs" />
+    <Compile Include="_ignore\Helper.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Behavior\ITankBehavior.cs" />
     <Compile Include="TankAction.cs" />

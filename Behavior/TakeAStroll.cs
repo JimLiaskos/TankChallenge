@@ -1,30 +1,33 @@
 ﻿
-public class TakeAStroll : BaseBehavior, ITankBehavior
+public class TakeAStroll : ITankBehavior
 {
-    public override TankAction GetNextAction()
+    public TankAction GetNextAction(TankAction? previousAction)
     {
-        return ChooseAction(GetNextActionInternal());
-    }
+        if (TankAPI.CurrentState.TargetInSight)
+            return TankAction.FireCannon;
 
-    private TankAction GetNextActionInternal()
-    {
-        if (TankAPI.CurrentState[Direction.Front] > 1) {
+        if (TankAPI.CurrentState[Direction.North] > 1) {
             return TankAction.MoveForward;
         }
 
         return AvoidDeadEnd();
     }
 
+    public bool IsComplete()
+    {
+        return false;
+    }
+
     private TankAction AvoidDeadEnd()
     {
         var action = TankAction.MoveBackward;
 
-        var left_available = TankAPI.CurrentState[Direction.Left] > 1;
-        var right_available = TankAPI.CurrentState[Direction.Right] > 1;
+        var left_available = TankAPI.CurrentState[Direction.West] > 1;
+        var right_available = TankAPI.CurrentState[Direction.East] > 1;
 
         if (left_available && right_available) {
 
-            action = TankAPI.CurrentState[Direction.Left] >= TankAPI.CurrentState[Direction.Right] ?
+            action = TankAPI.CurrentState[Direction.West] >= TankAPI.CurrentState[Direction.East] ?
                 TankAction.TurnLeft :
                 TankAction.TurnRight;
 

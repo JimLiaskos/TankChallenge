@@ -21,7 +21,8 @@ public static class TankAPI
     public static TankState CurrentState
     { get { return _currentState; } }
 
-    public static void NewTurn() {
+    public static void NewTurn()
+    {
         _currentState = TankState.Current;
         _isTurnCompleted = false;
     }
@@ -58,6 +59,13 @@ public static class TankAPI
 
             case TankAction.TurnRight:
                 apiAction = API.TurnRight;
+                break;
+
+            case TankAction.TryToShoot:
+                apiAction = () => {
+                    if (CurrentState.TargetInSight) 
+                        API.FireCannon();
+                };
                 break;
 
             default:
