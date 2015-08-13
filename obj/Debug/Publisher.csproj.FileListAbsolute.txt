@@ -1,5 +1,0 @@
-C:\Users\jim_l_000\documents\visual studio 2013\Projects\Play\Publisher\obj\Debug\Publisher.csprojResolveAssemblyReference.cache
-C:\Users\jim_l_000\documents\visual studio 2013\Projects\Play\Publisher\bin\Debug\Publisher.pdb
-C:\Users\jim_l_000\documents\visual studio 2013\Projects\Play\Publisher\obj\Debug\Publisher.pdb
-C:\Users\jim_l_000\Documents\Visual Studio 2013\Projects\Play\Publisher\bin\Debug\Publisher.dll
-C:\Users\jim_l_000\Documents\Visual Studio 2013\Projects\Play\Publisher\obj\Debug\Publisher.dll
