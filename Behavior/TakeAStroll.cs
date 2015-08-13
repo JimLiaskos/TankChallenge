@@ -6,7 +6,7 @@ public class TakeAStroll : ITankBehavior
         if (TankAPI.CurrentState.TargetInSight)
             return TankAction.FireCannon;
 
-        if (TankAPI.CurrentState[Direction.North] > 1) {
+        if (TankAPI.CurrentState[Direction.Front] > 1) {
             return TankAction.MoveForward;
         }
 
@@ -22,12 +22,12 @@ public class TakeAStroll : ITankBehavior
     {
         var action = TankAction.MoveBackward;
 
-        var left_available = TankAPI.CurrentState[Direction.West] > 1;
-        var right_available = TankAPI.CurrentState[Direction.East] > 1;
+        var left_available = TankAPI.CurrentState[Direction.Left] > 1;
+        var right_available = TankAPI.CurrentState[Direction.Right] > 1;
 
         if (left_available && right_available) {
 
-            action = TankAPI.CurrentState[Direction.West] >= TankAPI.CurrentState[Direction.East] ?
+            action = TankAPI.CurrentState[Direction.Left] >= TankAPI.CurrentState[Direction.Right] ?
                 TankAction.TurnLeft :
                 TankAction.TurnRight;
 

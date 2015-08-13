@@ -11,7 +11,6 @@ public static class TankAPI
     /// </summary>
     static TankAPI()
     {
-        //_isTurnCompleted = false;
         _currentState = TankState.Current;
     }
 

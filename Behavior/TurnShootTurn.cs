@@ -10,11 +10,11 @@ public class TurnShootTurn : ITankBehavior
     public TurnShootTurn(Direction direction)
     {
         switch (direction) {
-            case Direction.West:
+            case Direction.Left:
                 _queue = GetLeftComplexAction();
                 break;
 
-            case Direction.East:
+            case Direction.Right:
                 _queue = GetRightComplexAction();
                 break;
 

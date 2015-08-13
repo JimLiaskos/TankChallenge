@@ -19,10 +19,10 @@ public class TankState
         _targetInSight = API.IdentifyTarget();
 
         _distances = new Dictionary<Direction, int> {
-                {Direction.North, API.LidarFront()},
-                {Direction.South, API.LidarBack()},
-                {Direction.West, API.LidarLeft()},
-                {Direction.East, API.LidarRight()}
+                {Direction.Front, API.LidarFront()},
+                {Direction.Back, API.LidarBack()},
+                {Direction.Left, API.LidarLeft()},
+                {Direction.Right, API.LidarRight()}
             };
     }
 
@@ -54,23 +54,15 @@ public class TankState
     {
         var builder = new StringBuilder();
 
-        builder.AppendFormat("\t\tFR: {0}", this[Direction.North].ToString("##"));
+        builder.AppendFormat("\t\tFR: {0}", this[Direction.Front].ToString("##"));
         builder.AppendLine();
 
         builder.AppendFormat("\tLE: {0}\t\tRI: {1}",
-            this[Direction.West].ToString("##"),
-            this[Direction.East].ToString("##"));
+            this[Direction.Left].ToString("##"),
+            this[Direction.Right].ToString("##"));
         builder.AppendLine();
 
-        builder.AppendFormat("\t\tBA: {0}", this[Direction.South].ToString("##"));
-        builder.AppendLine();
-
-        //builder.AppendFormat("FR: {0} BA: {1} LE: {2} RI: {3} ",
-        //    this[Direction.Front].ToString("##"),
-        //    this[Direction.Back].ToString("##"),
-        //    this[Direction.Left].ToString("##"),
-        //    this[Direction.Right].ToString("##"));
-
+        builder.AppendFormat("\t\tBA: {0}", this[Direction.Back].ToString("##"));
         builder.AppendLine();
 
         builder.AppendFormat("FUEL: {0}, TIS: {1}", Fuel.ToString("##"), TargetInSight);

@@ -1,7 +1,7 @@
 ﻿
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Probes the environment and the movement history to take a decision...like a brain!
@@ -76,27 +76,27 @@ public class Brain
         var right_closeIn = false;
         var left_closeIn = false;
 
-        if (currentState[Direction.West] < previousState[Direction.West])
+        if (currentState[Direction.Left] < previousState[Direction.Left])
             left_closeIn = true;
 
-        if (currentState[Direction.East] < previousState[Direction.East])
+        if (currentState[Direction.Right] < previousState[Direction.Right])
             right_closeIn = true;
 
         if (right_closeIn && left_closeIn) {
 
-            if (currentState[Direction.West] - previousState[Direction.West] <=
-                currentState[Direction.East] - previousState[Direction.East]) {
+            if (currentState[Direction.Left] - previousState[Direction.Left] <=
+                currentState[Direction.Right] - previousState[Direction.Right]) {
 
-                closeIn = Direction.West;
+                closeIn = Direction.Left;
             } else {
 
-                closeIn = Direction.East;
+                closeIn = Direction.Right;
             }
 
         } else if (left_closeIn) {
-            closeIn = Direction.West;
+            closeIn = Direction.Left;
         } else if (right_closeIn) {
-            closeIn = Direction.East;
+            closeIn = Direction.Right;
         }
 
         if (closeIn.HasValue && currentState[closeIn.Value] == 1)
