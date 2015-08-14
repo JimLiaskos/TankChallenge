@@ -5,6 +5,8 @@ public static class TankAPI
 {
     private static bool _isTurnCompleted;
     private static TankState _currentState;
+    private static Compass _currentDirection;
+
 
     /// <summary>
     /// 
@@ -12,10 +14,14 @@ public static class TankAPI
     static TankAPI()
     {
         _currentState = TankState.Current;
+        _currentDirection = Compass.North;
     }
 
     public static bool IsTurnCompleted
     { get { return _isTurnCompleted; } }
+
+    public static Compass CardinalDirection
+    { get { return _currentDirection; } }
 
     public static TankState CurrentState
     { get { return _currentState; } }
@@ -54,15 +60,23 @@ public static class TankAPI
 
             case TankAction.TurnLeft:
                 apiAction = API.TurnLeft;
+
+                _currentDirection = CompassMapping.GetNewDirection(
+                    _currentDirection, Compass.West);
+
                 break;
 
             case TankAction.TurnRight:
                 apiAction = API.TurnRight;
+
+                _currentDirection = CompassMapping.GetNewDirection(
+                    _currentDirection, Compass.East);
+
                 break;
 
             case TankAction.TryToShoot:
                 apiAction = () => {
-                    if (CurrentState.TargetInSight) 
+                    if (CurrentState.TargetInSight)
                         API.FireCannon();
                 };
                 break;
@@ -73,7 +87,7 @@ public static class TankAPI
         }
 
         if (apiAction == null) {
-            throw new ApplicationException(string.Format("Unknown TankAction: {0}", (int)action));
+            throw new ApplicationException(string.Format("Unknown TankAction: {0}", (int) action));
         }
 
         TankAPI.ConsumeTurn(apiAction);

@@ -6,6 +6,7 @@ public class TankState
 {
     private readonly int _fuel;
     private readonly bool _targetInSight;
+    private readonly Compass _cardinalDirection;
     private readonly Dictionary<Direction, int> _distances;
 
     public static TankState Current
@@ -17,6 +18,7 @@ public class TankState
     {
         _fuel = API.CurrentFuel();
         _targetInSight = API.IdentifyTarget();
+        _cardinalDirection = TankAPI.CardinalDirection;
 
         _distances = new Dictionary<Direction, int> {
                 {Direction.Front, API.LidarFront()},
@@ -49,6 +51,12 @@ public class TankState
     /// <summary>
     /// 
     /// </summary>
+    public Compass CardinalDirection
+    { get { return _cardinalDirection; } }
+
+    /// <summary>
+    /// 
+    /// </summary>
     /// <returns></returns>
     public override string ToString()
     {
@@ -65,7 +73,7 @@ public class TankState
         builder.AppendFormat("\t\tBA: {0}", this[Direction.Back].ToString("##"));
         builder.AppendLine();
 
-        builder.AppendFormat("FUEL: {0}, TIS: {1}", Fuel.ToString("##"), TargetInSight);
+        builder.AppendFormat("FUEL: {0}, TIS: {1}, CMP: {2}", Fuel.ToString("##"), TargetInSight, CardinalDirection);
 
         return builder.ToString();
     }

@@ -1,11 +1,11 @@
-﻿using System;
+﻿
+using System;
 using System.IO;
 
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 
 public static class Helper
 {
@@ -65,7 +65,6 @@ public static class Helper
                 classLines.Add(line);
             }
 
-
         }
 
         var result = usingsSet.ToList();
@@ -79,4 +78,3 @@ public static class Helper
         return builder.ToString();
     }
 }
-

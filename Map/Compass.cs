@@ -1,4 +1,4 @@
-﻿enum Compass {
+﻿public enum Compass {
     South, 
     North, 
     East, 

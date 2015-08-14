@@ -20,8 +20,42 @@ public static class CompassMapping
                 return GetWestMap();
 
             default:
-                throw new ApplicationException("Unknown cardinal direction: " + (int)cardinalDirection);
+                throw new ApplicationException("Unknown cardinal direction: " + (int) cardinalDirection);
         }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="currentDirection"></param>
+    /// <param name="newDirection"></param>
+    /// <returns></returns>
+    public static Compass GetNewDirection(Compass currentDirection, Compass newDirection)
+    {
+        if (newDirection != Compass.West &&
+            newDirection != Compass.East) {
+
+            throw new ApplicationException("Cannot turn to a direction other than West or East.");
+        }
+
+        if (currentDirection == Compass.North) {
+            return newDirection;
+        }
+
+        switch (currentDirection) {
+            case Compass.South:
+                return newDirection == Compass.East ? Compass.West : Compass.East;
+
+            case Compass.East:
+                return newDirection == Compass.East ? Compass.South : Compass.North;
+
+            case Compass.West:
+                return newDirection == Compass.East ? Compass.North: Compass.South;
+
+            default:
+                throw new ApplicationException("New direction unknown");
+        }
+
     }
 
     /// <summary>
