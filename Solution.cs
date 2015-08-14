@@ -7,11 +7,12 @@ public class Solution
     private int _turnCount = 0;
 
     private Brain _brain;
-
+    private Grid _gameGrid;
 
     public Solution()
     {
-        _brain = new Brain();
+        _gameGrid = new Grid();
+        _brain = new Brain(_gameGrid);
 
         // If you need initialization code, you can write it here!
     }
@@ -38,7 +39,13 @@ public class Solution
 
         TankAPI.NewTurn();
 
-        var action = _brain.TakeDecision(TankState.Current);
+        var preActionState = TankState.Current;
+
+        var action = _brain.TakeDecision(preActionState);
+
+        _gameGrid.UpdateMap(preActionState);
+        //_gameGrid.Print(preActionState);
+        
         TankAPI.PerformAction(action);
 
         Console.WriteLine(TankState.Current);

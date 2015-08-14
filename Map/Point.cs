@@ -27,6 +27,11 @@ public class Point
         return new Point(one.X + other.X, one.Y + other.Y);
     }
 
+    public static Point operator *(Point one, Point other)
+    {
+        return new Point(one.X * other.X, one.Y * other.Y);
+    }
+
     public static Point operator -(Point one, Point other)
     {
         return new Point(one.X - other.X, one.Y - other.Y);
@@ -78,6 +83,11 @@ public class Point
         }
 
         return obj.GetHashCode() == this.GetHashCode();
+    }
+
+    public override string ToString()
+    {
+        return string.Format("{0}, {1}", X.ToString("##"), Y.ToString("##"));
     }
 
 }

@@ -11,16 +11,19 @@ public class Brain
     private readonly List<TankState> _stateMemory;
     private readonly List<TankAction> _actionMemory;
 
+    private Grid _gameGrid;
     private ITankBehavior _currentBehavior;
     private ITankBehavior _defaultBehavior;
 
-    public Brain()
+    public Brain(Grid gameGrid)
     {
 
         _stateMemory = new List<TankState>();
         _actionMemory = new List<TankAction>();
         _currentBehavior = null;
         _defaultBehavior = new TakeAStroll();
+
+        _gameGrid = gameGrid;
     }
 
     public TankAction TakeDecision(TankState state)

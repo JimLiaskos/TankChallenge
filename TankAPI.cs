@@ -4,6 +4,7 @@ using System;
 public static class TankAPI
 {
     private static bool _isTurnCompleted;
+    private static Point _currentPosition;
     private static TankState _currentState;
     private static Compass _currentDirection;
 
@@ -13,12 +14,16 @@ public static class TankAPI
     /// </summary>
     static TankAPI()
     {
+        _currentPosition = new Point(0, 0);
         _currentState = TankState.Current;
         _currentDirection = Compass.North;
     }
 
     public static bool IsTurnCompleted
     { get { return _isTurnCompleted; } }
+
+    public static Point CurrentPosition
+    { get { return _currentPosition; } }
 
     public static Compass CardinalDirection
     { get { return _currentDirection; } }
@@ -52,10 +57,22 @@ public static class TankAPI
 
             case TankAction.MoveForward:
                 apiAction = API.MoveForward;
+
+                _currentPosition = _currentPosition + 
+                    CompassMapping.GetDirectionSign(_currentDirection) * 
+                    CompassMapping.GetDirectionOffset(_currentDirection, (uint) 1);
+
                 break;
 
             case TankAction.MoveBackward:
                 apiAction = API.MoveBackward;
+
+                var oppsiteDirection = CompassMapping.GetOppositeDirection(_currentDirection);
+
+                _currentPosition = _currentPosition +
+                    CompassMapping.GetDirectionSign(oppsiteDirection) *
+                    CompassMapping.GetDirectionOffset(oppsiteDirection, (uint) 1);
+
                 break;
 
             case TankAction.TurnLeft:

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class TankState
 {
     private readonly int _fuel;
+    private Point _currentPosition;
     private readonly bool _targetInSight;
     private readonly Compass _cardinalDirection;
     private readonly Dictionary<Direction, int> _distances;
@@ -18,6 +19,7 @@ public class TankState
     {
         _fuel = API.CurrentFuel();
         _targetInSight = API.IdentifyTarget();
+        _currentPosition = TankAPI.CurrentPosition;
         _cardinalDirection = TankAPI.CardinalDirection;
 
         _distances = new Dictionary<Direction, int> {
@@ -51,6 +53,12 @@ public class TankState
     /// <summary>
     /// 
     /// </summary>
+    public Point CurrentPosition
+    { get { return _currentPosition; } }
+
+    /// <summary>
+    /// 
+    /// </summary>
     public Compass CardinalDirection
     { get { return _cardinalDirection; } }
 
@@ -73,8 +81,8 @@ public class TankState
         builder.AppendFormat("\t\tBA: {0}", this[Direction.Back].ToString("##"));
         builder.AppendLine();
 
-        builder.AppendFormat("FUEL: {0}, TIS: {1}, CMP: {2}", Fuel.ToString("##"), TargetInSight, CardinalDirection);
-
+        builder.AppendFormat("FUEL: {0}, TIS: {1}", Fuel.ToString("##"), TargetInSight);
+        builder.AppendFormat("[X, Y]: {0} CMP: {1}", CurrentPosition.ToString(), CardinalDirection);
         return builder.ToString();
     }
 }
