@@ -1,11 +1,9 @@
 ﻿
 using System;
 using System.IO;
-
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 public static class Helper
 {
@@ -13,17 +11,12 @@ public static class Helper
 
     public static string CreateSingleModule(string rootPath)
     {
-        var dirList = GetDirectories(
-            new Stack<string>(),
-            new Queue<string>(new List<string>() { { rootPath } }));
-
-        var classFiles = new List<string>();
-
-        foreach (var dir in dirList) {
-            Directory.GetFiles(dir, "*.cs").ToList().ForEach(classFiles.Add);
-        }
-
-        return ParseFiles(classFiles);
+        return ParseFiles(
+            GetDirectories(
+                new Stack<string>(),
+                new Queue<string>(new[] { rootPath }))
+            .Select(x => Directory.GetFiles(x, "*.cs"))
+            .SelectMany(x => x));
     }
 
     private static IEnumerable<string> GetDirectories(Stack<string> output, Queue<string> input)
@@ -32,21 +25,19 @@ public static class Helper
             return output;
         }
 
-        var dir = input.Dequeue();
+        output.Push(input.Dequeue());
 
-        new DirectoryInfo(dir).EnumerateDirectories()
+        new DirectoryInfo(output.Peek())
+            .EnumerateDirectories()
             .Where(x => !_excluded.Contains(x.Name))
             .Where(x => !x.Name.StartsWith("."))
-            .Select(x => x.FullName)
-            .ToList()
+            .Select(x => x.FullName).ToList()
             .ForEach(input.Enqueue);
-
-        output.Push(dir);
 
         return GetDirectories(output, input);
     }
 
-    private static string ParseFiles(List<string> filePaths)
+    private static string ParseFiles(IEnumerable<string> filePaths)
     {
         var classLines = new List<string>();
         var usingsSet = new HashSet<string>();
